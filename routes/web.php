@@ -163,5 +163,6 @@ Route::middleware(['auth', 'role:SAS_Director'])->group(function () {
 //testing
 
 
+
 Route::get('/adviser/temp/view/{hashed_id}', [FacultyAdviserController::class, 'viewTempPdf'])
   ->name('adviser.view.temp.pdf');
