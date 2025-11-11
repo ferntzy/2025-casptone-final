@@ -33,7 +33,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
   Route::post('/users', [UserController::class, 'store'])->name('users.store');
   Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
   Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
-  Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+  Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');//////////////////////
+
   Route::get('/logs', [App\Http\Controllers\UserLogController::class, 'index'])->name('admin.logs');
   Route::post('/users/check-availability', [UserController::class, 'checkAvailability'])
     ->name('users.checkAvailability'); //check user and email if already used

@@ -6,7 +6,7 @@
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
  <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 
 {{--------------------------------------------------------------------- CREATE ACCOUNT-------------------------------------------------}}
@@ -305,7 +305,7 @@
     });
  </script>
 
- <script>
+ {{-- <script>
   //SEARCH BARRRRRRR
     document.addEventListener("DOMContentLoaded", () => {
       const searchInput = document.querySelector('#globalSearch'); // global search bar
@@ -354,7 +354,7 @@
       // Initial table
       renderTable(rows);
     });
- </script>
+ </script> --}}
 
 
 
@@ -362,7 +362,7 @@
 
 
 
-
+{{--SORTING--}}
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const table = document.querySelector("table");
@@ -425,3 +425,78 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+
+
+{{---------------------------------------------------ACCCCOUNT DELETE----------------------------------------------}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    // Grab modal and form elements
+    const deleteModal = document.getElementById('confirmDeleteModal');
+      if (!deleteModal) return;
+    const deleteForm = document.getElementById('deleteUserForm');
+    const deleteMessage = document.getElementById('deleteMessage');
+    const passwordError = document.getElementById('passwordError');
+    const adminPasswordInput = document.getElementById('adminPassword');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+
+    // Ensure all elements exist
+    if (!deleteModal || !deleteForm || !deleteMessage || !adminPasswordInput) return;
+
+    // Show.bs.modal event triggers when modal opens
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget; // Button that triggered modal
+        if (!button) return;
+
+        const userId = button.getAttribute('data-user-id');
+        const username = button.getAttribute('data-username');
+
+        // Set confirmation message
+        deleteMessage.textContent = `Are you sure you want to delete the account "${username}"?`;
+
+        // Dynamically set form action
+        deleteForm.action = `/users/${userId}`;
+
+        // Clear password and hide previous error
+        adminPasswordInput.value = '';
+        passwordError.classList.add('d-none');
+    });
+
+    // Toggle password visibility
+    if (togglePasswordBtn) {
+        togglePasswordBtn.addEventListener('click', function () {
+            const type = adminPasswordInput.type === 'password' ? 'text' : 'password';
+            adminPasswordInput.type = type;
+            // Optional: toggle icon
+            const icon = this.querySelector('i');
+            if (icon) icon.classList.toggle('bx-show');
+            if (icon) icon.classList.toggle('bx-hide');
+        });
+    }
+
+    // Optional: intercept form submission to check empty password
+    deleteForm.addEventListener('submit', function (e) {
+        if (adminPasswordInput.value.trim() === '') {
+            e.preventDefault();
+            passwordError.textContent = 'Please enter your admin password.';
+            passwordError.classList.remove('d-none');
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-----------------------------------------------------------------------PROFILE------------------------------------------}}
+
+
+

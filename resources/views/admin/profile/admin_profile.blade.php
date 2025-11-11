@@ -5,14 +5,37 @@ $container = 'container-xxl';
 @extends('layouts/contentNavbarLayout')
 
 @section('title', 'My Profile')
-
+@include("admin.users.js")
+<head>
+  <!-- Bootstrap Icons -->
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
+</head>
 {{-- Link to the custom profile stylesheet --}}
-<link rel="stylesheet" href="{{ asset('assets/css/profile.css') }}">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
 
 @section('content')
 <div class="{{ $container }} py-4 profile-page">
     <!-- Profile Header -->
+    {{-- All your profile + modal code here --}}
+</div>
+    @if(session('success'))
+      <script>
+        Swal.fire({
+          title: "Profile Updated!",
+          text: "{{ session('success') }}",
+          icon: "success",
+          draggable: true
+        });
+        </script>
+      @endif
+
+
+
+
+
   <div class="profile-header-card mb-4">
 
   <!-- Left Section: Avatar + Info -->

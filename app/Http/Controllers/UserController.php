@@ -105,15 +105,32 @@ public function create()
 
 
 
-  public function destroy(User $user)
-  {
+ public function destroy(Request $request, $id)
+{
+    // Get currently logged-in user
+    $admin = auth()->user();
+
+    // Check if logged-in user is admin
+    if ($admin->account_role !== 'admin') {
+        return back()->with('error', 'Only admins can delete users.');
+    }
+
+    // Verify admin password entered
+    if (!Hash::check($request->admin_password, $admin->password)) {
+        return back()->with('error', 'Incorrect admin password.');
+    }
+
+    // Prevent admin from deleting themselves (optional)
+    if ($admin->user_id == $id) {
+        return back()->with('error', 'You cannot delete your own account.');
+    }
+
+    // Find user and delete
+    $user = User::findOrFail($id);
     $user->delete();
-    return response()->json([
-      'success' => true,
-      'user_id' => $user->user_id,
-      'message' => 'User deleted successfully!',
-    ]);
-  }
+
+    return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+}
 
 
 }

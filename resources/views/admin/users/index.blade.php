@@ -23,6 +23,32 @@
 
 @section('content')
   <div class="{{ $container }}">
+
+
+@if(session('error'))
+    <script>
+        Swal.fire({
+            title: "Error!",
+            text: "{{ session('error') }}",
+            icon: "error",
+            draggable: true
+        });
+    </script>
+@endif
+
+
+
+
+ @if(session('success'))
+      <script>
+        Swal.fire({
+          title: "Account Updated!",
+          text: "{{ session('success') }}",
+          icon: "success",
+          draggable: true
+        });
+        </script>
+      @endif
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">User Accounts</h5>
@@ -31,9 +57,7 @@
         </a>
       </div>
 
-      @if(session('success'))
-        <div class="alert alert-success m-3">{{ session('success') }}</div>
-      @endif
+
 
       <div class="table-responsive text-nowrap">
         <table class="table table-hover mb-0">
@@ -127,32 +151,7 @@
     </div>
   </div>
 
-  {{-- Success Modal --}}
-  @if(session('success'))
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header bg-success text-white">
-            <h5 class="modal-title" id="successModalLabel">Success</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            {{ session('success') }}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-        successModal.show();
-      });
-    </script>
-  @endif
 
   {{-- Delete Confirmation Modal --}}
   <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
@@ -186,6 +185,8 @@
           </div>
         </div>
       </form>
+
+
     </div>
   </div>
 
