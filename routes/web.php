@@ -46,6 +46,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
   Route::view('/approvals/history', 'admin.approvals.history');
   Route::view('/esignatures/pending', 'admin.ESignature.pending');
   Route::view('/esignatures/completed', 'admin.ESignature.completed');
+
+  //ADMIN ORGANIZATION ROUTES
   Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
   Route::post('/organizations/store', [OrganizationController::class, 'store'])
      ->name('organizations.store');

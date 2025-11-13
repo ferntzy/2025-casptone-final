@@ -2,11 +2,10 @@
   $container = 'container-xxl';
 
 @endphp
-
+ <link rel="stylesheet" href="{{ asset('assets/css/organization.css') }}">
 @extends('layouts/contentNavbarLayout')
 
 @section('title', 'Registered Organizations')
-
 @section('content')
   <div class="{{ $container }}">
     <div class="card shadow-sm">
@@ -306,16 +305,5 @@
         });
       });
     </script>
-
-    <style>
-      .hover-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-
-      .hover-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-      }
-    </style>
   @endsection
 @endsection
