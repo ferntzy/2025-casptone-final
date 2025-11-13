@@ -135,7 +135,7 @@
 
           <div class="mb-3">
             <label class="form-label">Adviser</label>
-            <select name="adviser_id" class="form-select">
+            <select name="adviser_name" class="form-select">
               <option value=""></option>
               @foreach ($advisers as $adviser)
                 <option value="{{ $adviser->user_id }}">
