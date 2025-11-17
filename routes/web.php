@@ -51,6 +51,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
   Route::get('/organizations', [OrganizationController::class, 'index'])->name('organizations.index');
   Route::post('/organizations/store', [OrganizationController::class, 'store'])
      ->name('organizations.store');
+  Route::delete('/organizations/{organization_id}', [OrganizationController::class, 'destroy'])
+    ->name('organizations.destroy');
+  Route::get('organizations/{organization}', [OrganizationController::class, 'show'])->name('organizations.show');
+
   Route::view('/reports/minutes', 'admin.reports.minutes');
   Route::view('/roles', 'admin.users.roles');
   Route::view('/account', 'admin.profile.account');

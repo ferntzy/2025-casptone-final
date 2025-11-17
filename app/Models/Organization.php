@@ -17,12 +17,17 @@ class Organization extends Model
         'user_id',
         'organization_name',
         'organization_type',
-        'adviser_name', // replace adviser_name with adviser_id
+        'adviser_name',
         'contact_email',
         'contact_number',
         'status',
         'description',
     ];
+
+    public function officers()
+    {
+        return $this->hasMany(Officer::class, 'organization_id', 'organization_id');
+    }
 
     // Link back to creator user
     public function user()
@@ -81,4 +86,17 @@ class Organization extends Model
     {
         return $this->organization_type;
     }
+    public function studentOfficers()
+    {
+        return $this->hasManyThrough(
+            UserProfile::class, // final table
+            User::class,        // intermediate table
+            'organization_id',  // FK on users table
+            'user_id',          // FK on user_profiles table
+            'organization_id',  // local key on organizations
+            'user_id'           // local key on users
+        )->where('account_role', 'Student_Organization');
+    }
+
 }
+
