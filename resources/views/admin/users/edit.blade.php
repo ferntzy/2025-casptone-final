@@ -4,7 +4,7 @@
 @endphp
 
 @extends('layouts/contentNavbarLayout')
-
+@include("admin.users.js")
 @section('title', 'Edit User')
 
 @section('content')
@@ -30,10 +30,17 @@
             <input type="email" name="email" class="form-control" value="{{ $user->email }}" required>
           </div>
 
-          <div class="mb-3">
+        <div class="mb-3 position-relative">
             <label class="form-label">Password (Leave blank to keep current)</label>
-            <input type="password" name="password" class="form-control">
+            <div class="input-group">
+               <input type="password" name="password" class="form-control password-field" >
+              <span class="input-group-text toggle-password" style="cursor:pointer;">
+                <i class="bi bi-eye-slash"></i>
+              </span>
+
+            </div>
           </div>
+
 
           <div class="mb-3">
             <label class="form-label">Account Role</label>
@@ -44,7 +51,7 @@
             </select>
           </div>
 
-          <button type="submit" class="btn btn-warning">Update</button>
+          <button type="submit" class="btn btn-success">Update</button>
         </form>
       </div>
     </div>

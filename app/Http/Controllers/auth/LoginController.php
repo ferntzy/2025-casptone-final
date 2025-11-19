@@ -17,7 +17,7 @@ class LoginController extends Controller
   public function login(Request $request)
   {
     $credentials = $request->validate([
-      'email' => ['required'],
+      'username' => ['required'],
       'password' => ['required'],
     ]);
 
@@ -48,7 +48,7 @@ class LoginController extends Controller
     }
 
     return back()->withErrors([
-      'email' => 'Invalid credentials.',
+      'username' => 'Invalid credentials.',
     ]);
   }
 
@@ -65,5 +65,5 @@ class User extends Authenticatable
 {
   protected $primaryKey = 'user_id'; // Important for your custom column name
   public $incrementing = true;
-  protected $fillable = ['username', 'email', 'password', 'account_role'];
+  protected $fillable = ['username',  'password', 'account_role'];
 }

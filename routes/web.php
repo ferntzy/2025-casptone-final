@@ -31,17 +31,19 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
   Route::get('/users', [UserController::class, 'index'])->name('users.index');
   Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
   Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
   Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-  Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+ Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+
+
+
+  // Route::get('/users/{id}/profile', [UserController::class, 'viewProfile']);
 
   Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');//////////////////////
 
   Route::get('/logs', [App\Http\Controllers\UserLogController::class, 'index'])->name('admin.logs');
   Route::post('/users/check-availability', [UserController::class, 'checkAvailability'])
     ->name('users.checkAvailability'); //check user and email if already used
-
-
-
   // Route::get('/admin/profile', [AdminProfileController::class, 'show'])
   //   ->name('admin.profile');
 Route::middleware(['auth'])->group(function () {
@@ -81,6 +83,14 @@ Route::middleware(['auth', 'role:Student_Organization'])->prefix('student')->gro
   Route::view('/calendar', 'student.calendar')->name('student.calendar');
   Route::view('/profile', 'student.profile')->name('student.profile');
 
+
+
+
+
+
+
+  Route::get('/admin/profile', [AdminProfileController::class, 'show'])->name('admin.profile.show');
+
   // Permit routes
   Route::get('/permit/form', [PermitController::class, 'showForm'])->name('permit.form');
   Route::post('/permit/generate', [PermitController::class, 'generate'])->name('permit.generate');
@@ -89,6 +99,11 @@ Route::middleware(['auth', 'role:Student_Organization'])->prefix('student')->gro
   // ✅ Added route to view individual permit PDF
   Route::get('/permit/view/{permit}', [PermitController::class, 'view'])->name('student.permit.view');
 });
+
+
+
+
+
 // ============================
 // OTHER ROLES
 // ============================

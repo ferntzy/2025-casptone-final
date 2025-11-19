@@ -32,6 +32,8 @@ class UserController extends Controller
     return view('admin.users.index', compact('users', 'sortField', 'sortDirection'));
 }
 
+
+
 public function create()
 {
     return view('admin.users.create');
@@ -42,14 +44,12 @@ public function create()
   {
     $request->validate([
       'username' => 'required|unique:users,username',
-      'email' => 'required|email|unique:users,email',
       'password' => 'required|min:6',
       'account_role' => 'required',
     ]);
 
     User::create([
       'username' => $request->username,
-      'email' => $request->email,
       'password' => Hash::make($request->password),
       'account_role' => $request->account_role,
     ]);
@@ -57,33 +57,55 @@ public function create()
     return redirect()->route('users.index')->with('success', 'User created successfully!');
   }
 
-  public function edit(User $user)
+
+  public function viewProfile($id)
+{
+    $user = User::with('profile')->findOrFail($id);
+
+    return view('admin.users.partials.view-profile', compact('user'));
+}
+
+
+
+
+
+
+public function edit(User $user)
   {
     return view('admin.users.edit', compact('user'));
   }
 
-  public function update(Request $request, User $user)
-  {
-    $request->validate([
-      'username' => 'required|unique:users,username,' . $user->user_id . ',user_id',
-      'email' => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
-      'account_role' => 'required',
-    ]);
+public function update(Request $request, User $user)
+{
 
-    $data = [
-      'username' => $request->username,
-      'email' => $request->email,
-      'account_role' => $request->account_role,
-    ];
+    // dd($user);
 
-    if ($request->filled('password')) {
-      $data['password'] = Hash::make($request->password);
+    try {
+        $request->validate([
+            'username' => 'required|unique:users,username,' . $user->user_id . ',user_id',
+            'account_role' => 'required|string',
+            'password' => 'nullable|min:6',
+        ]);
+
+        $data = $request->only('username', 'email', 'account_role');
+
+        if ($request->filled('password')) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        return back()->withErrors($e->errors())->withInput();
+    } catch (\Exception $e) {
+        return back()->with('error', 'Something went wrong: ' . $e->getMessage())->withInput();
     }
+}
 
-    $user->update($data);
 
-    return redirect()->route('users.index')->with('success', 'User updated successfully!');
-  }
+
 
 
   //check user and email if already use - lex
@@ -105,32 +127,36 @@ public function create()
 
 
 
- public function destroy(Request $request, $id)
+public function destroy(Request $request, $id)
 {
-    // Get currently logged-in user
     $admin = auth()->user();
 
-    // Check if logged-in user is admin
     if ($admin->account_role !== 'admin') {
         return back()->with('error', 'Only admins can delete users.');
     }
 
-    // Verify admin password entered
     if (!Hash::check($request->admin_password, $admin->password)) {
         return back()->with('error', 'Incorrect admin password.');
     }
 
-    // Prevent admin from deleting themselves (optional)
     if ($admin->user_id == $id) {
         return back()->with('error', 'You cannot delete your own account.');
     }
 
-    // Find user and delete
     $user = User::findOrFail($id);
+
+    // Delete all linked events first
+    $user->events()->delete();
+
+    // Then delete the user
     $user->delete();
 
-    return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    return redirect()->route('users.index')->with('success', 'Account deleted successfully.');
 }
+
+
+
+
 
 
 }

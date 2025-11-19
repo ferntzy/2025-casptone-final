@@ -162,7 +162,7 @@ $container = 'container-xxl';
 
           <div class="mb-3">
               <label for="avatar" class="form-label">Avatar</label>
-              <input type="file" class="form-control" id="profile_picture_path" name="profile_picture_path" accept="image/*">
+              <input type="file" class="form-control" id="avatar" name="avatar" accept="image/*">
           </div>
 
 
@@ -194,9 +194,9 @@ $container = 'container-xxl';
           <li class="nav-item">
               <a class="nav-link active" id="about-tab" data-bs-toggle="tab" href="#about" role="tab">About</a>
           </li>
-          {{-- <li class="nav-item">
+          <li class="nav-item">
               <a class="nav-link" id="password-tab" data-bs-toggle="tab" href="#password" role="tab">Password</a>
-          </li> --}}
+          </li>
       </ul>
 
       <div class="tab-content" id="profileTabsContent">
@@ -210,7 +210,7 @@ $container = 'container-xxl';
                               <h5 class="mb-0">Personal Details</h5>
                           </div>
                           <div class="personal-card-body">
-                              <p><strong>First Name  :</strong> {{ $admin->profile->first_name ?? 'none'  }}</p>
+                              <p><strong>First Name  :</strong> {{ $student->profile->first_name ?? 'none'  }}</p>
                               <p><strong>Middle Name:</strong> {{ $admin->profile->middle_name ?? 'none'  }}</p>
                               <p><strong>Last Name  :</strong> {{ $admin->profile->last_name ?? 'none'  }}</p>
                               <p><strong>Contact #  :</strong> {{ $admin->profile->contact_number ?? 'none' }}</p>

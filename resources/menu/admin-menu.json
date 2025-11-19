@@ -6,12 +6,13 @@
     {
       "url": "/admin/dashboard",
       "name": "Analytics",
-      "slug": "dashboard-analytics"
+      "slug": "dashboard-analytics",
+      "icon": "mdi mdi-view-dashboard-outline"
     },
     {
       "url": "/admin/calendar",
       "name": "Calendar",
-        "icon": "mdi:file-document-edit-outline",
+      "icon": "mdi mdi-calendar-month-outline",
       "slug": "admin-calendar"
     },
     {
@@ -20,7 +21,8 @@
     {
       "url": "/admin/event-requests",
       "name": "All Requests",
-      "slug": "event-requests-all"
+      "slug": "event-requests-all",
+      "icon": "mdi mdi-clipboard-text-clock-outline"
     },
 
     {
@@ -29,7 +31,8 @@
     {
       "url": "/admin/organizations",
       "name": "All Organizations",
-      "slug": "organizations-all"
+      "slug": "organizations-all",
+      "icon": "mdi mdi-account-multiple-outline"
     },
     {
       "menuHeader": "User Management"
@@ -37,21 +40,14 @@
     {
       "url": "/admin/users",
       "name": "All Users",
-      "slug": "users-all"
+      "slug": "users-all",
+      "icon": "mdi mdi-account-group-outline"
     },
     {
       "url": "/admin/logs",
       "name": "User Logs",
-      "slug": "user-logs"
-    },
-
-    {
-      "menuHeader": "Account"
-    },
-    {
-      "url": "/logout",
-      "name": "Logout",
-      "slug": "logout"
+      "slug": "user-logs",
+      "icon": "mdi mdi-file-document-outline"
     }
   ]
 }

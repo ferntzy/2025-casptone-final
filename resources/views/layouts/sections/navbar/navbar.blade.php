@@ -131,20 +131,10 @@
         <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
           <li>
             <a class="dropdown-item pb-2 mb-1" href="javascript:void(0);">
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0 me-2 pe-1">
-                  <div class="avatar avatar-online">
-                    <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
-                  </div>
-                </div>
-               <div>
-                  <span class="fw-medium d-block">
-                    {{ Auth::user()?->account_role }}
-                  </span>
-                  <small class="text-muted">
-                    {{ Auth::user()?->account_role }}
-                  </small>
-                </div>
+              <div>
+                <span class="fw-medium d-block" style="text-align: center; text-transform: uppercase;">
+                  {{ Auth::user()?->account_role }}
+                </span>
               </div>
             </a>
           </li>
@@ -169,10 +159,11 @@
             <div class="dropdown-divider my-1"></div>
           </li>
           <li>
-            <a class="dropdown-item" href="javascript:void(0);">
+           <a class="dropdown-item" href="{{ route('logout') }}">
               <i class="mdi mdi-power me-1 mdi-20px"></i>
               <span class="align-middle">Log Out</span>
             </a>
+
           </li>
         </ul>
       </li>
